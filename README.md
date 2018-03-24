@@ -6,4 +6,10 @@ My Unreal Course from Udemy for C++ Game programming using Unreal Engine.
 
 ### Header 3`?
 
+*** 
+3 stars to form a line
+
 #### Header 4 (Marked up colored text) 
+* Bullit 1 - Stars to make a bullit list
+* Bullit 2
+* Bullit 3
