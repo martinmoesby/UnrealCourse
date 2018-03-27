@@ -7,27 +7,32 @@ void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ATank* controlledTank = GetControlledTank();
-	ATank* playerTank = GetPlayerTank();
+	//ATank* controlledTank = GetControlledTank();
+	//ATank* playerTank = GetPlayerTank();
 
-	//auto owner = GetOwner();
-
-	if (playerTank) // && owner)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("I have found player: %s"), *(playerTank->GetName()));
-	}
-	//else if (owner && !playerTank)
+	//if (playerTank)
 	//{
-	//	UE_LOG(LogTemp, Warning, TEXT("%s has not found a Player tank"), *(owner->GetName()));
+	//	controlledTank->AimAt(playerTank->GetActorLocation());
 	//}
-	else
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("No playercontroller"));
+	//}
+
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick( DeltaTime );
+
+	if (GetPlayerTank())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No playercontroller"));
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
 	}
 
 }
 
-ATank* ATankAIController::GetControlledTank() const 
+ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
 }
