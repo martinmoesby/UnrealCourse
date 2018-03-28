@@ -1,10 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
-#include "Public/DrawDebugHelpers.h"
+
 #include "Engine/World.h"
 #include "Public/CollisionQueryParams.h"
 
+#include "Tank.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -86,18 +87,6 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector& HitLocation, FVect
 	FHitResult HitResult;
 	FVector StartLocation = PlayerCameraManager->GetCameraLocation();
 	FVector EndLocation = StartLocation + (LookDirection * MaxRange);
-
-	//DrawDebugLine
-	//(
-	//	GetWorld(),
-	//	StartLocation,
-	//	EndLocation,
-	//	FColor(255,0,0),
-	//	false,
-	//	0,
-	//	0,
-	//	3
-	//);
 
 	if (GetWorld()->LineTraceSingleByChannel(
 		HitResult,
