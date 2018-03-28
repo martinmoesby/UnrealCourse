@@ -1,8 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank.h"
+#include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "TankAmingComponent.h"
+
+void ATank::Fire()
+{
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: Firing..."), Time);
+}
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
