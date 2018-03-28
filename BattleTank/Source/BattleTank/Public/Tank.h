@@ -7,6 +7,7 @@
 #include "Tank.generated.h"
 
 class UTankAmingComponent;
+class UTankMovementComponent;
 class UTankBarrel;
 class UTankTurrekt;
 class AProjectile;
@@ -30,7 +31,7 @@ public:
 
 protected:
 	UTankAmingComponent* TankAimingComponent = nullptr;
-
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties

@@ -4,7 +4,7 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAmingComponent.h"
-
+#include "TankMovementComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/StaticMeshSocket.h"
 #include "Engine/World.h"
@@ -32,6 +32,7 @@ ATank::ATank()
 	// No need to protect pointer as added at construction;
 
 	TankAimingComponent = CreateDefaultSubobject<UTankAmingComponent>(FName("AimingComponent"));
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));
 
 }
 
