@@ -42,19 +42,17 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	UPROPERTY(EditAnywhere, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint;
-	//UClass* ProjectileBlueprint; // Alternative 
-
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint; //Ensures only Components of Type AProjectile can be selected as Projectile in blueprint
+	
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float MuzzleVelocity = 4000.f;
 
-	UTankBarrel* Barrel = nullptr;
-
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ReloadTime = 3.f;
 
 
+	UTankBarrel* Barrel = nullptr;
 	double LastFireTime = 0;
 
 };

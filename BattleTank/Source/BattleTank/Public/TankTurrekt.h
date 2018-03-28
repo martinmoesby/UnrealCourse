@@ -17,7 +17,7 @@ class BATTLETANK_API UTankTurrekt : public UStaticMeshComponent
 public:
 	void Rotate(float ReletiveSpeed);
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float RotationSpeed = 25.f;
 	
 	
