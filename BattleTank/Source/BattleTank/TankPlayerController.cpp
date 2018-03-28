@@ -82,7 +82,6 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector& HitLocation, FVect
 	FHitResult HitResult;
 	FVector StartLocation = PlayerCameraManager->GetCameraLocation();
 	FVector EndLocation = StartLocation + (LookDirection * MaxRange);
-
 	if (GetWorld()->LineTraceSingleByChannel(
 		HitResult,
 		StartLocation,
@@ -92,6 +91,5 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector& HitLocation, FVect
 		HitLocation = HitResult.Location;
 		return true;
 	}
-	HitLocation = FVector(0);
 	return false;
 }

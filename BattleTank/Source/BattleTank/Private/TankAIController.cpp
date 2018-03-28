@@ -4,36 +4,21 @@
 #include "Tank.h"
 #include "Engine/World.h"
 
-void ATankAIController::BeginPlay() 
+void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick( DeltaTime );
-
-	if (GetPlayerTank())
+	auto playerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+	auto controlledTank = Cast<ATank>(GetPawn());
+	if (playerTank)
 	{
-		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+		controlledTank->AimAt(playerTank->GetActorLocation());
+		controlledTank->Fire();
 	}
 
-}
-
-ATank* ATankAIController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-ATank * ATankAIController::GetPlayerTank() const
-{
-	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (!PlayerPawn) // Protect your pointer !!!!!!!!!
-	{
-		return nullptr;
-	}
-	else
-	{
-		return Cast<ATank>(PlayerPawn);
-	}
 }

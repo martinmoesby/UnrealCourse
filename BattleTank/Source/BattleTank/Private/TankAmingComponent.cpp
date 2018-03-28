@@ -53,6 +53,10 @@ void UTankAmingComponent::AimAt(FVector HitLocation, float MuzzleVelocity)
 		auto AimingAt = OutTossVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimingAt);
 	}
+	else
+	{
+		MoveBarrelTowards(FVector(0));
+	}
 }
 
 void UTankAmingComponent::MoveBarrelTowards(FVector AimDirection)

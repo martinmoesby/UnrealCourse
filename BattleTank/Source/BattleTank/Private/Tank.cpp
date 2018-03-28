@@ -1,20 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank.h"
-#include "Engine/World.h"
-#include "GameFramework/Pawn.h"
+#include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankAmingComponent.h"
 
-void ATank::Fire()
-{
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Firing..."), Time);
-}
+#include "GameFramework/Pawn.h"
+#include "Engine/StaticMeshSocket.h"
+#include "Engine/World.h"
+
+
+
+
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
-
+	Barrel = BarrelToSet;
 }
 
 void ATank::SetTurretReference(UTankTurrekt * TurretToSet)
@@ -52,3 +54,22 @@ void ATank::AimAt(FVector HitLocation)
 	TankAimingComponent->AimAt(HitLocation, MuzzleVelocity);
 }
 
+void ATank::Fire()
+{
+
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTime;
+
+	if (Barrel && isReloaded) {
+
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Muzzle")),
+			Barrel->GetSocketRotation(FName("Muzzle"))
+			);
+		Projectile->LaunchProjectile(MuzzleVelocity);
+
+		LastFireTime = FPlatformTime::Seconds();
+
+	}
+
+}
