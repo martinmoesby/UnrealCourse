@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
 #include "TankAmingComponent.h"
+#include "TankBarrel.h"
+#include "Kismet/GameplayStaticsTypes.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/StaticMeshComponent.h"
 
 
 // Sets default values for this component's properties
@@ -13,31 +16,42 @@ UTankAmingComponent::UTankAmingComponent()
 	// ...
 }
 
-
-// Called when the game starts
-void UTankAmingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-void UTankAmingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
+void UTankAmingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
 
-// Called every frame
-void UTankAmingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
 void UTankAmingComponent::AimAt(FVector HitLocation, float MuzzleVelocity)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Firing at %f"), MuzzleVelocity);
+
+	if (!Barrel) { return; }
+
+	auto WorldContextObject = this;
+	FVector OutTossVelocity;
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Muzzle"));
+	bool bHaveFiringSolution = UGameplayStatics::SuggestProjectileVelocity(
+		this,
+		OutTossVelocity,
+		StartLocation,
+		HitLocation,
+		MuzzleVelocity,
+		ESuggestProjVelocityTraceOption::DoNotTrace
+	);
+
+	if (bHaveFiringSolution)
+	{
+		auto AimingAt = OutTossVelocity.GetSafeNormal();
+		auto TankName = GetOwner()->GetName();
+		MoveBarrelTowards(AimingAt);
+
+	}
+}
+
+void UTankAmingComponent::MoveBarrelTowards(FVector AimDirection)
+{
+	// get the difference between current barrel rotation and aim direction
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAtRotator = AimDirection.Rotation();
+	auto DeltaRotator = BarrelRotator - AimAtRotator;
+	Barrel->Elevate(5);
 }

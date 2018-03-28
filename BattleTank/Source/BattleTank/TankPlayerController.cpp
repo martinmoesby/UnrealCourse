@@ -11,15 +11,15 @@ void ATankPlayerController::BeginPlay()
 
 	Super::BeginPlay();
 
-	ATank* ControlledTank = GetControlledTank();
-	if (!ControlledTank)
-	{
-		UE_LOG(LogTemp, Error, TEXT("PlayerController NOT controlling a Tank"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player Controller controlling pawn: %s"), *(ControlledTank->GetName()));
-	}
+	//ATank* ControlledTank = GetControlledTank();
+	//if (!ControlledTank)
+	//{
+	//	UE_LOG(LogTemp, Error, TEXT("PlayerController NOT controlling a Tank"));
+	//}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("Player Controller controlling pawn: %s"), *(ControlledTank->GetName()));
+	//}
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
