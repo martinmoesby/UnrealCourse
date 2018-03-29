@@ -19,8 +19,8 @@ public:
 	void SetThrottle(float Throttle);
 	
 	UPROPERTY(EditDefaultsOnly)
-	float MaxTrackDrivingForce = 400000.f; // Assume 40 ton tank anfd 1g acceleration 
+	float MaxTrackDrivingForce = 400000.f; // Assume 40 ton tank and 1g acceleration 
 
 private:
-	float Throttle = 0.f;
+
 };

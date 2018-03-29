@@ -31,7 +31,9 @@ public:
 
 protected:
 	UTankAmingComponent* TankAimingComponent = nullptr;
-	UTankMovementComponent* TankMovementComponent = nullptr;
+
+	// This has to be added in Blueprint. component is BlueprintSpawnable
+	//UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
