@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// (c)2018 Martin Moesby
 
 #pragma once
 
@@ -6,12 +6,16 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+
 class UTankAmingComponent;
-class UTankMovementComponent;
 class UTankBarrel;
 class UTankTurrekt;
 class AProjectile;
 
+
+/**
+*
+*/
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {

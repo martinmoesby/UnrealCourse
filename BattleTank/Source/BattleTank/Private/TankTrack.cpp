@@ -1,6 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// (c)2018 Martin Moesby
 
 #include "TankTrack.h"
+
 #include "Engine/World.h"
 
 

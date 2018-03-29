@@ -1,4 +1,4 @@
-//©2018 Martin Moesby 
+//(c)2018 Martin Moesby 
 
 #pragma once
 

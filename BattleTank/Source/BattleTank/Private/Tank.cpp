@@ -1,10 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// (c)2018 Martin Moesby
 
 #include "Tank.h"
+
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAmingComponent.h"
-#include "TankMovementComponent.h"
+
 #include "GameFramework/Pawn.h"
 #include "Engine/StaticMeshSocket.h"
 #include "Engine/World.h"
@@ -37,7 +38,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(FVector HitLocation)
 {
-	if (!TankAimingComponent) { return; }
+	if (!ensure(TankAimingComponent)) { return; }
 
 	TankAimingComponent->AimAt(HitLocation, MuzzleVelocity);
 }
@@ -45,9 +46,11 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::Fire()
 {
 
+	if (!ensure(Barrel)) { return; }
+
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTime;
 
-	if (Barrel && isReloaded) {
+	if (isReloaded) {
 
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,

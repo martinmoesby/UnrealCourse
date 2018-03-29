@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+//(c)2018 Martin Moesby
 #pragma once
 
 #include "CoreMinimal.h"
@@ -20,7 +19,9 @@ enum class EFiringState : uint8
 class UTankBarrel; 
 class UTankTurrekt;
 
-//Holds Barrels properties and Elevate Method
+/**
+* Responsible for the aiming of the tank.
+*/
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAmingComponent : public UActorComponent
 {

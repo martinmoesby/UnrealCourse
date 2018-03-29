@@ -1,7 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// (c)2018 Martin Moesby
 
-#include "Public/TankAIController.h"
+#include "TankAIController.h"
+
 #include "Tank.h"
+
 #include "Engine/World.h"
 
 void ATankAIController::BeginPlay()

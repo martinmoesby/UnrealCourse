@@ -1,18 +1,19 @@
-//© 2018 Martin Moesby 
+//(c) 2018 Martin Moesby 
 
 #include "TankMovementComponent.h"
+
 #include "TankTrack.h"
 
 void UTankMovementComponent::IntentMoveForward(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; } // Protect the pointers!!
+	if (!ensure(LeftTrack && RightTrack)) { return; } // Protect the pointers!!
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntentTurnRight(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; } // Protect the pointers!!
+	if (!ensure(LeftTrack && RightTrack)) { return; } // Protect the pointers!!
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }

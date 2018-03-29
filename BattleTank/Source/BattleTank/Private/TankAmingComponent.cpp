@@ -1,7 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// (c)2018 Martin Moesby
+
 #include "TankAmingComponent.h"
+
 #include "TankBarrel.h"
 #include "TankTurrekt.h"
+
 #include "Kismet/GameplayStaticsTypes.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
@@ -27,7 +30,7 @@ void UTankAmingComponent::Initialise(UTankBarrel * Barrel, UTankTurrekt * Turret
 void UTankAmingComponent::AimAt(FVector HitLocation, float MuzzleVelocity)
 {
 
-	if (!Barrel) { return; }
+	if (!ensure(Barrel && Turret)) { return; }
 
 	auto WorldContextObject = this;
 	FVector OutTossVelocity;
