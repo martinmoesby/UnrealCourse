@@ -35,8 +35,6 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	IntentMoveForward(ForwardThrow);
 	IntentTurnRight(RightThrow);
 
-//	UE_LOG(LogTemp, Warning, TEXT("%s : Request Moving to : %s"),*TankName,*MoveVelocityNormal.ToString());
-
 }
 
 void UTankMovementComponent::Initialise(UTankTrack * LeftTrack, UTankTrack * RightTrack)

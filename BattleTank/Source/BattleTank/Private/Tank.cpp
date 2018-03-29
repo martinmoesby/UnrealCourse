@@ -4,7 +4,6 @@
 
 #include "TankBarrel.h"
 #include "Projectile.h"
-#include "TankAmingComponent.h"
 
 #include "GameFramework/Pawn.h"
 #include "Engine/StaticMeshSocket.h"
@@ -22,29 +21,14 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	TankAimingComponent = FindComponentByClass<UTankAmingComponent>();
-	
+
 }	
-
-
 
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	UE_LOG(LogTemp, Warning, TEXT("I'm here"));
-		
+	
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-
-	TankAimingComponent->AimAt(HitLocation, MuzzleVelocity);
-
-
 }
 
 void ATank::Fire()

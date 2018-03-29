@@ -27,7 +27,7 @@ void UTankAmingComponent::Initialise(UTankBarrel * Barrel, UTankTurrekt * Turret
 	this->Turret = Turret;
 }
 
-void UTankAmingComponent::AimAt(FVector HitLocation, float MuzzleVelocity)
+void UTankAmingComponent::AimAt(FVector HitLocation)
 {
 
 	if (!ensure(Barrel && Turret)) { return; }

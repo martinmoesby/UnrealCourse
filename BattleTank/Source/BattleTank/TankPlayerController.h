@@ -19,8 +19,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 
 protected:
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAmingComponent* AimComRef);
@@ -29,6 +27,7 @@ private:
 	virtual void BeginPlay() override;
 	virtual void Tick( float ) override;
 	
+	UTankAmingComponent* AimingComponent = nullptr;
 
 
 	// Starts to move the barrel towards the point where the crosshair hits the world
