@@ -18,15 +18,21 @@ UTankAmingComponent::UTankAmingComponent()
 	// ...
 }
 
-void UTankAmingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
+void UTankAmingComponent::Initialise(UTankBarrel * Barrel, UTankTurrekt * Turret)
 {
-	Barrel = BarrelToSet;
+	this->Barrel = Barrel;
+	this->Turret = Turret;
 }
 
-void UTankAmingComponent::SetTurretReference(UTankTurrekt * TurretToSet)
-{
-	Turret = TurretToSet;
-}
+//void UTankAmingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
+//{
+//	Barrel = BarrelToSet;
+//}
+//
+//void UTankAmingComponent::SetTurretReference(UTankTurrekt * TurretToSet)
+//{
+//	Turret = TurretToSet;
+//}
 
 void UTankAmingComponent::AimAt(FVector HitLocation, float MuzzleVelocity)
 {

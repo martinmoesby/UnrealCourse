@@ -13,16 +13,16 @@
 
 
 
-void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
-{
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
-	Barrel = BarrelToSet;
-}
-
-void ATank::SetTurretReference(UTankTurrekt * TurretToSet)
-{
-	TankAimingComponent->SetTurretReference(TurretToSet);
-}
+//void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
+//{
+//	TankAimingComponent->SetBarrelReference(BarrelToSet);
+//	Barrel = BarrelToSet;
+//}
+//
+//void ATank::SetTurretReference(UTankTurrekt * TurretToSet)
+//{
+//	TankAimingComponent->SetTurretReference(TurretToSet);
+//}
 
 // Sets default values
 ATank::ATank()
@@ -31,7 +31,8 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 	// No need to protect pointer as added at construction;
 
-	TankAimingComponent = CreateDefaultSubobject<UTankAmingComponent>(FName("AimingComponent"));
+	// This should be added by desiger in Blueprint
+	//TankAimingComponent = CreateDefaultSubobject<UTankAmingComponent>(FName("AimingComponent"));
 
 	// This should be added by desiger in Blueprint
 	//TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));
