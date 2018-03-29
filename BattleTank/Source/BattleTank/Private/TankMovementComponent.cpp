@@ -1,41 +1,45 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+//© 2018 Martin Moesby 
 
 #include "TankMovementComponent.h"
 #include "TankTrack.h"
 
 void UTankMovementComponent::IntentMoveForward(float Throw)
 {
-	auto Name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s intends to move forward with %f"), *Name, Throw);
-	if (!LeftTrack || !RightTrack) // Protect the pointers!!
-	{ 
-		UE_LOG(LogTemp, Error, TEXT("MovementComponent needs 2 track to move the tank."));
-		return; 
-	} 
-
+	if (!LeftTrack || !RightTrack) { return; } // Protect the pointers!!
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntentTurnRight(float Throw)
 {
-	auto Name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s intends to turn right with %f"), *Name, Throw);
-	if (!LeftTrack || !RightTrack) // Protect the pointers!!
-	{
-		UE_LOG(LogTemp, Error, TEXT("MovementComponent needs 2 track to move the tank."));
-		return;
-	}
-
+	if (!LeftTrack || !RightTrack) { return; } // Protect the pointers!!
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
 
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	// Get the direcetion the tank is heading
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	
+	// Get the direction the tanks wants to move
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+
+	// Calculate the Forward Throw that we vant the AI tank to move with...
+	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+
+	// Calculate the Right Throw the we want the tank to turn with...
+	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+	// Set the Tank Moving...
+	IntentMoveForward(ForwardThrow);
+	IntentTurnRight(RightThrow);
+
+//	UE_LOG(LogTemp, Warning, TEXT("%s : Request Moving to : %s"),*TankName,*MoveVelocityNormal.ToString());
+
+}
+
 void UTankMovementComponent::Initialise(UTankTrack * LeftTrack, UTankTrack * RightTrack)
 {
-	auto Name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("Initilising tracks %s and %s "), *(LeftTrack->GetName()), *(RightTrack->GetName()));
-
 	this->LeftTrack = LeftTrack;
 	this->RightTrack = RightTrack;
 }

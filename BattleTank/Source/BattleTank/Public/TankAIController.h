@@ -22,5 +22,6 @@ private:
 
 	virtual void Tick( float ) override;
 
-
+	// How close will the AI tank com before stopping?
+	float ProximityLimit = 3000.f; // Assumes this is in cm, thus 30 meters TODO Check unit of AcceptanceRadius property on MoveToActor
 };

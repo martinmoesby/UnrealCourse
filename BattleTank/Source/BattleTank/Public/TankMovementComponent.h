@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+//©2018 Martin Moesby 
 
 #pragma once
 
@@ -23,11 +23,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntentTurnRight(float Throw);
 
-protected:
 	UFUNCTION(BLueprintCallable)
 	void Initialise(UTankTrack* LeftTrack, UTankTrack* RightTrack);
 
 private:
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;
 };
