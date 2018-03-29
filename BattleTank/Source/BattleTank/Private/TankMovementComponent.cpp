@@ -17,6 +17,20 @@ void UTankMovementComponent::IntentMoveForward(float Throw)
 	RightTrack->SetThrottle(Throw);
 }
 
+void UTankMovementComponent::IntentTurnRight(float Throw)
+{
+	auto Name = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s intends to turn right with %f"), *Name, Throw);
+	if (!LeftTrack || !RightTrack) // Protect the pointers!!
+	{
+		UE_LOG(LogTemp, Error, TEXT("MovementComponent needs 2 track to move the tank."));
+		return;
+	}
+
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+}
+
 void UTankMovementComponent::Initialise(UTankTrack * LeftTrack, UTankTrack * RightTrack)
 {
 	auto Name = GetName();
