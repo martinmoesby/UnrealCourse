@@ -33,10 +33,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UTankBarrel* Barrel, UTankTurrekt* Turret);
 
-	// Sets default values for this component's properties
-	//void SetBarrelReference(UTankBarrel*);
-	//void SetTurretReference(UTankTurrekt*);
-
 	void AimAt(FVector, float);
 
 protected:

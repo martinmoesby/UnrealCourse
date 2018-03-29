@@ -24,16 +24,6 @@ void UTankAmingComponent::Initialise(UTankBarrel * Barrel, UTankTurrekt * Turret
 	this->Turret = Turret;
 }
 
-//void UTankAmingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
-//{
-//	Barrel = BarrelToSet;
-//}
-//
-//void UTankAmingComponent::SetTurretReference(UTankTurrekt * TurretToSet)
-//{
-//	Turret = TurretToSet;
-//}
-
 void UTankAmingComponent::AimAt(FVector HitLocation, float MuzzleVelocity)
 {
 

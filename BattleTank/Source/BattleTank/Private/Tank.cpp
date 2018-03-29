@@ -9,33 +9,12 @@
 #include "Engine/StaticMeshSocket.h"
 #include "Engine/World.h"
 
-
-
-
-
-//void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
-//{
-//	TankAimingComponent->SetBarrelReference(BarrelToSet);
-//	Barrel = BarrelToSet;
-//}
-//
-//void ATank::SetTurretReference(UTankTurrekt * TurretToSet)
-//{
-//	TankAimingComponent->SetTurretReference(TurretToSet);
-//}
-
 // Sets default values
 ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 	// No need to protect pointer as added at construction;
-
-	// This should be added by desiger in Blueprint
-	//TankAimingComponent = CreateDefaultSubobject<UTankAmingComponent>(FName("AimingComponent"));
-
-	// This should be added by desiger in Blueprint
-	//TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));
 
 }
 
@@ -55,6 +34,8 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent) { return; }
+
 	TankAimingComponent->AimAt(HitLocation, MuzzleVelocity);
 }
 

@@ -23,18 +23,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
-	//UFUNCTION(BlueprintCallable, Category=Setup)
-	//void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	//UFUNCTION(BlueprintCallable, Category = Setup)
-	//void SetTurretReference(UTankTurrekt* TurretToSet);
-
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAmingComponent* TankAimingComponent = nullptr;
-
-	// This has to be added in Blueprint. component is BlueprintSpawnable
-	//UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
