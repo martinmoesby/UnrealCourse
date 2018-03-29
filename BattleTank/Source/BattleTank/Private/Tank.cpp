@@ -16,13 +16,16 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 	// No need to protect pointer as added at construction;
 
+	UE_LOG(LogTemp, Warning, TEXT("MARTIN SAYS: This is the Constructor of the Tank in C++"))
+
+
 }
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	UE_LOG(LogTemp, Warning, TEXT("MARTIN SAYS: This is the BeginPlay of the Tank in C++"))
 }
 
 // Called to bind functionality to input
