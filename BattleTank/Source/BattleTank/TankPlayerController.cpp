@@ -31,13 +31,15 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair() 
 {
+	if (!GetPawn()) { return; } // e.g. Not possessing
 	AimingComponent = GetPawn()->FindComponentByClass<UTankAmingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation; // Out parameter
-	if (GetSightRayHitLocation(HitLocation))
+	bool bHasGotFiringSolution = GetSightRayHitLocation(HitLocation);
+
+	if (bHasGotFiringSolution)
 	{
-		// tell the controlled tank to aim at this point
 		AimingComponent->AimAt(HitLocation);
 	}
 }

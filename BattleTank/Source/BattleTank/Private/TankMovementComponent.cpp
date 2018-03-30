@@ -31,6 +31,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 	// Calculate the Right Throw the we want the tank to turn with...
 	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+
 	// Set the Tank Moving...
 	IntentMoveForward(ForwardThrow);
 	IntentTurnRight(RightThrow);

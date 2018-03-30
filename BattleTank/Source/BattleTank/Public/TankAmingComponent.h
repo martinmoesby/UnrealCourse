@@ -11,7 +11,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Ready
+	Ready,
+	OutOfAmmo
 };
 
 
@@ -39,9 +40,16 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
+	EFiringState GetFiringState() const;
+
+	int GetAmmoCount() const;
+
 protected:
 	UPROPERTY(BlueprintReadonly, Category = "Status")
 	EFiringState FiringState = EFiringState::Aiming;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadonly,  Category = "Status")
+	int AmmoCount = 3;
 
 private:
 	
@@ -61,7 +69,7 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTime = 3.f;
-	
+
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint; //Ensures only Components of Type AProjectile can be selected as Projectile in blueprint
 

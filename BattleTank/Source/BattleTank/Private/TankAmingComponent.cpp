@@ -17,30 +17,28 @@ UTankAmingComponent::UTankAmingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true; // TODO Should this tick??
-	UE_LOG(LogTemp, Warning, TEXT("%f: AimingComponent Construction"), FPlatformTime::Seconds());
-
+	PrimaryComponentTick.bCanEverTick = true; 
 	// ...
 }
 
 void UTankAmingComponent::BeginPlay() 
 {
 	LastFireTime = FPlatformTime::Seconds();
-	FiringState = EFiringState::Ready;
-
-	UE_LOG(LogTemp, Warning, TEXT("%f: AimingComponent BeginPlay"), FPlatformTime::Seconds());
+	FiringState = EFiringState::Reloading;
 
 }
 
 void UTankAmingComponent::TickComponent(float DeltaTIme, ELevelTick TickType, FActorComponentTickFunction * TickFunction)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%f: AimingComponent Ticking"), FPlatformTime::Seconds());
-
 	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTime)
 	{
 		FiringState = EFiringState::Reloading;
 	}
-	else if (IsBarrelMoving()) 
+	else if (AmmoCount == 0)
+	{
+		FiringState = EFiringState::OutOfAmmo;
+	}
+	else if (IsBarrelMoving())
 	{
 		FiringState = EFiringState::Aiming;
 	}
@@ -84,10 +82,7 @@ void UTankAmingComponent::AimAt(FVector HitLocation)
 		AimDirection = OutTossVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
-	else
-	{
-		MoveBarrelTowards(FVector(0));
-	}
+
 }
 
 void UTankAmingComponent::MoveBarrelTowards(FVector AimDirection)
@@ -96,15 +91,22 @@ void UTankAmingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAtRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAtRotator - BarrelRotator;
-	Barrel->Elevate(DeltaRotator.Pitch); // TODO eliminate magic number
-	Turret->Rotate(DeltaRotator.Yaw);
-
+	Barrel->Elevate(DeltaRotator.Pitch); 
+	if (FMath::Abs(DeltaRotator.Yaw) <  180)
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else 
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}
+	
 }
 
 void UTankAmingComponent::Fire()
 {
-	if (FiringState != EFiringState::Reloading) {
-
+	if (FiringState != EFiringState::Reloading && FiringState != EFiringState::OutOfAmmo) 
+	{
 		if (!ensure(Barrel)) { return; }
 		if (!ensure(ProjectileBlueprint)) { return; }
 
@@ -117,12 +119,24 @@ void UTankAmingComponent::Fire()
 		Projectile->LaunchProjectile(MuzzleVelocity);
 
 		LastFireTime = FPlatformTime::Seconds();
+		AmmoCount--;
+
 	}
+}
+
+EFiringState UTankAmingComponent::GetFiringState() const
+{
+	return FiringState;
+}
+
+int UTankAmingComponent::GetAmmoCount() const
+{
+	return AmmoCount;
 }
 
 bool UTankAmingComponent::IsBarrelMoving()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Barrel Vector: %s, AimDirection: %s"), *(Barrel->GetForwardVector().ToString()), *AimDirection.ToString());
+	if (!ensure(Barrel)) { return false; }
 
 	return !Barrel->GetForwardVector().Equals(AimDirection,0.1f);
 

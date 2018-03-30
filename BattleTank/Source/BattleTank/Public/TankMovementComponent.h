@@ -26,6 +26,8 @@ public:
 	UFUNCTION(BLueprintCallable)
 	void Initialise(UTankTrack* LeftTrack, UTankTrack* RightTrack);
 
+
+
 private:
 	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	UTankTrack* LeftTrack = nullptr;
