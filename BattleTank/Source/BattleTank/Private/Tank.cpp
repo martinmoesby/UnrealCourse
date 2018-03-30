@@ -2,13 +2,6 @@
 
 #include "Tank.h"
 
-#include "TankBarrel.h"
-#include "Projectile.h"
-
-#include "GameFramework/Pawn.h"
-#include "Engine/StaticMeshSocket.h"
-#include "Engine/World.h"
-
 // Sets default values
 ATank::ATank()
 {
@@ -17,38 +10,4 @@ ATank::ATank()
 	// No need to protect pointer as added at construction;
 }
 
-// Called when the game starts or when spawned
-void ATank::BeginPlay()
-{
-	Super::BeginPlay();
 
-}	
-
-// Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
-void ATank::Fire()
-{
-
-	if (!ensure(Barrel)) { return; }
-
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTime;
-
-	if (isReloaded) {
-
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
-			ProjectileBlueprint,
-			Barrel->GetSocketLocation(FName("Muzzle")),
-			Barrel->GetSocketRotation(FName("Muzzle"))
-			);
-		Projectile->LaunchProjectile(MuzzleVelocity);
-
-		LastFireTime = FPlatformTime::Seconds();
-
-	}
-
-}

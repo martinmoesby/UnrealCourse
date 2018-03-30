@@ -18,6 +18,7 @@ enum class EFiringState : uint8
 // Forward declaration
 class UTankBarrel; 
 class UTankTurrekt;
+class AProjectile;
 
 /**
 * Responsible for the aiming of the tank.
@@ -27,7 +28,6 @@ class BATTLETANK_API UTankAmingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-	UTankAmingComponent();
 
 public:	
 
@@ -35,16 +35,37 @@ public:
 	void Initialise(UTankBarrel* Barrel, UTankTurrekt* Turret);
 
 	void AimAt(FVector HitLocation);
+	
+	UFUNCTION(BlueprintCallable)
+	void Fire();
 
 protected:
 	UPROPERTY(BlueprintReadonly, Category = "Status")
 	EFiringState FiringState = EFiringState::Aiming;
 
 private:
+	
+	UTankAmingComponent();	
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTIme, enum ELevelTick TickType, FActorComponentTickFunction* TickFunction) override;
+
+	void MoveBarrelTowards(FVector AimDirection);
+
+	bool IsBarrelMoving();	
+
 	UTankBarrel* Barrel = nullptr;
 	UTankTurrekt* Turret = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float MuzzleVelocity = 4000.f;
-	void MoveBarrelTowards(FVector AimDirection);
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTime = 3.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint; //Ensures only Components of Type AProjectile can be selected as Projectile in blueprint
+
+	double LastFireTime = 0;
+
+	FVector AimDirection;
 };

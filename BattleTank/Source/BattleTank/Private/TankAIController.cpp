@@ -9,8 +9,6 @@
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("AI Controller Begin Play"));
-	PrimaryActorTick.bCanEverTick = true;
 
 }
 
@@ -19,8 +17,6 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	UE_LOG(LogTemp, Warning, TEXT("AI Controller Tick"));
-
 	auto playerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 	auto controlledTank = GetPawn();
 
@@ -31,5 +27,5 @@ void ATankAIController::Tick(float DeltaTime)
 	auto AimingComponent = controlledTank->FindComponentByClass<UTankAmingComponent>();
 	AimingComponent->AimAt(playerTank->GetActorLocation());
 
-	//controlledTank->Fire();
+	//AimingComponent->Fire();
 }
