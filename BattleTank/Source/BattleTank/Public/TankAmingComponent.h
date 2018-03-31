@@ -40,16 +40,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
+	UFUNCTION(BlueprintCallable)
 	EFiringState GetFiringState() const;
 
-	int GetAmmoCount() const;
+	UFUNCTION(BlueprintCallable)
+	int32 GetAmmoCount() const;
 
 protected:
-	UPROPERTY(BlueprintReadonly, Category = "Status")
-	EFiringState FiringState = EFiringState::Aiming;
+	//UPROPERTY(BlueprintReadonly, Category = "Status")
+	//EFiringState FiringState = EFiringState::Aiming;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadonly,  Category = "Status")
-	int AmmoCount = 3;
+
 
 private:
 	
@@ -65,13 +66,19 @@ private:
 	UTankTurrekt* Turret = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	TSubclassOf<AProjectile> ProjectileBlueprint; //Ensures only Components of Type AProjectile can be selected as Projectile in blueprint
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float MuzzleVelocity = 4000.f;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTime = 3.f;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-	TSubclassOf<AProjectile> ProjectileBlueprint; //Ensures only Components of Type AProjectile can be selected as Projectile in blueprint
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 AmmoCount = 3;
+
+
+	EFiringState FiringState;
 
 	double LastFireTime = 0;
 
