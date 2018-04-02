@@ -1,6 +1,7 @@
 // (c)2018 Martin Moesby
 
 #include "Tank.h"
+#include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/Controller.h"
 
