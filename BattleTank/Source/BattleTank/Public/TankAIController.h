@@ -29,6 +29,10 @@ private:
 
 	virtual void Tick( float ) override;
 
+	virtual void SetPawn(APawn* InPawn) override;
+
 	UTankAmingComponent* AimingComponent = nullptr;
 
+	UFUNCTION()
+	void OnPossessedTankDeath();
 };

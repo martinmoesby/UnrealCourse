@@ -26,7 +26,8 @@ protected:
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick( float ) override;
-	
+	virtual void SetPawn(APawn * InPawn) override;
+
 	UTankAmingComponent* AimingComponent = nullptr;
 
 
@@ -44,4 +45,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 		float MaxRange = 1000000.0f;
+
+	UFUNCTION()
+	void OnPossessedTankDeath();
 };

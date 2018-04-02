@@ -49,10 +49,10 @@ void UTankAmingComponent::TickComponent(float DeltaTIme, ELevelTick TickType, FA
 
 }
 
-void UTankAmingComponent::Initialise(UTankBarrel * Barrel, UTankTurrekt * Turret)
+void UTankAmingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurrekt * TurretToSet)
 {
-	this->Barrel = Barrel;
-	this->Turret = Turret;
+	Barrel = BarrelToSet;
+	Turret = TurretToSet;
 }
 
 void UTankAmingComponent::AimAt(FVector HitLocation)

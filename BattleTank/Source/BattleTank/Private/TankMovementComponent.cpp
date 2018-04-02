@@ -38,8 +38,8 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 }
 
-void UTankMovementComponent::Initialise(UTankTrack * LeftTrack, UTankTrack * RightTrack)
+void UTankMovementComponent::Initialise(UTankTrack * LeftTrackToSet, UTankTrack * RightTrackToSet)
 {
-	this->LeftTrack = LeftTrack;
-	this->RightTrack = RightTrack;
+	LeftTrack = LeftTrackToSet;
+	RightTrack = RightTrackToSet;
 }
